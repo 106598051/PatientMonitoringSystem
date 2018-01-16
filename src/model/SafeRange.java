@@ -1,46 +1,45 @@
 package model;
 
 /**
- * The Class SafeRange.
- * Contain safe range of device.
+ * The Class SafeRange. Contain safe range of device.
  */
 class SafeRange {
-  
+
   /** The lower bound. */
-  private int lowerBound;
-  
+  private double lowerBound;
+
   /** The upper bound. */
-  private int upperBound;
-  
+  private double upperBound;
+
   /**
    * Instantiates a new safe range.
    *
    * @param lowerBound the lower bound
    * @param upperBound the upper bound
    */
-  public SafeRange(int lowerBound, int upperBound) {
+  public SafeRange(double lowerBound, double upperBound) {
     this.lowerBound = lowerBound;
     this.upperBound = upperBound;
   }
-  
+
   /**
    * Lower bound accessor methods.
    *
    * @return the int
    */
-  public int lowerBound() {
+  public double lowerBound() {
     return this.lowerBound;
   }
-  
+
   /**
    * Upper bound accessor methods.
    *
    * @return the int
    */
-  public int upperBound() {
+  public double upperBound() {
     return this.upperBound;
   }
-  
-  
-  
+
+
+
 }
