@@ -49,10 +49,18 @@ public class InputProcess {
    */
   private void readFile() throws IOException {
     String input;
-    while ((input = this.bufferedreader.readLine()) != null) {
-      this.setting.add(input.split(" "));
-    }
+    do {
+      input = this.bufferedreader.readLine();
+      if (input == null) {
+        break;
+      } else if (input.trim().equals("")) {
+        continue;
+      } else {
+        this.setting.add(input.trim().split("\\s+"));
+      }
+    } while (true);
     this.inputFile.close();
+
   }
 
   /**
@@ -85,6 +93,7 @@ public class InputProcess {
     int patientAmount = this.monitor.patient().size();
     int patientIndex = 0;
     Patient patient = null;
+    boolean patientValid = false;
     String patientName = "";
     int patientPeriod = 0;
     String deviceCategory = "";
@@ -93,25 +102,39 @@ public class InputProcess {
     double safeRangeLowerBound = 0.0;
     double safeRangeUpperBound = 0.0;
     for (int i = 1; i < this.setting.size(); i++) {
-      if (setting.get(i).length == 3) {
+      if (setting.get(i).length == 0) {
+        continue;
+      }
+      if (this.setting.get(i).length == 3 && this.setting.get(i)[0].equals("patient")) {
         patientName = this.setting.get(i)[1];
         patient = this.monitor.getPatient(patientName);
-        if(patient == null) {
-          patientPeriod = Integer.parseInt(this.setting.get(i)[2]);
-          this.monitor.addPatient(patientName, patientPeriod);
-          patientAmount++;
-          patientIndex = patientAmount - 1;
-        }else {
+        if (patient == null) {
+          try {
+            patientPeriod = Integer.parseInt(this.setting.get(i)[2]);
+            this.monitor.addPatient(patientName, patientPeriod);
+            patientAmount++;
+            patientIndex = patientAmount - 1;
+          } catch (NumberFormatException e) {
+            continue;
+          }
+        } else {
           patientIndex = patient.id();
         }
-      } else {
+        patientValid = true;
+      } else if (this.setting.get(i).length == 3) {
+        patientValid = false;
+      } else if (this.setting.get(i).length == 5 && patientValid) {
         deviceCategory = this.setting.get(i)[0];
         deviceName = this.setting.get(i)[1];
         datasetFilePath = this.setting.get(i)[2];
-        safeRangeLowerBound = Double.parseDouble(this.setting.get(i)[3]);
-        safeRangeUpperBound = Double.parseDouble(this.setting.get(i)[4]);
-        this.monitor.getPatient(patientIndex).addDevice(deviceCategory, deviceName, datasetFilePath,
-            safeRangeLowerBound, safeRangeUpperBound);
+        try {
+          safeRangeLowerBound = Double.parseDouble(this.setting.get(i)[3]);
+          safeRangeUpperBound = Double.parseDouble(this.setting.get(i)[4]);
+          this.monitor.getPatient(patientIndex).addDevice(deviceCategory, deviceName,
+              datasetFilePath, safeRangeLowerBound, safeRangeUpperBound);
+        } catch (NumberFormatException e) {
+          continue;
+        }
       }
     }
   }
