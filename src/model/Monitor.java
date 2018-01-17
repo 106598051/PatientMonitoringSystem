@@ -16,7 +16,7 @@ public class Monitor {
 
   /** The timestamp. */
   private int timestamp;
-  
+
   private ArrayList<String> factorRecord;
 
   /**
@@ -125,7 +125,15 @@ public class Monitor {
    */
   private void stop() {
     for (int i = 0; i < this.patient.size(); i++) {
-      this.patient.get(i).displayFactorDatabase();
+      this.factorRecord.add(this.patient.get(i).displayFactorDatabase());
+    }
+    this.displayRecord();
+  }
+
+  public void displayRecord() {
+    System.out.println("----Record-----");
+    for (int i = 0; i < this.factorRecord.size(); i++) {
+      System.out.print(this.factorRecord.get(i));
     }
   }
 }

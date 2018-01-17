@@ -141,12 +141,17 @@ class Patient {
   /**
    * Display factor database.
    */
-  public void displayFactorDatabase() {
-    System.out.println("patient " + this.name);
+  public String displayFactorDatabase() {
+    String output = "";
+     System.out.println("patient " + this.name);
+    output += "patient " + this.name + "\n";
     for (int i = 0; i < this.device.size(); i++) {
-      System.out.println(this.device.get(i).category() + " " + this.device.get(i).name());
-      this.device.get(i).displayRecord();
+       System.out.println(this.device.get(i).category() + " " + this.device.get(i).name());
+      output +=
+          this.device.get(i).category() + " " + this.device.get(i).name() + "\n";
+      output += this.device.get(i).displayRecord();
     }
+    return output;
   }
 
   public int id() {
