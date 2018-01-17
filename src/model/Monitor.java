@@ -16,8 +16,6 @@ public class Monitor {
 
   /** The timestamp. */
   private int timestamp;
-  
-  private ArrayList<String> factorRecord;
 
   /**
    * Instantiates a new monitor.
@@ -28,7 +26,6 @@ public class Monitor {
     this.monitorPeriod = monitorPeriod;
     this.patient = new ArrayList<Patient>();
     this.timestamp = 0;
-    this.factorRecord = new ArrayList<String>();
   }
 
   /**
