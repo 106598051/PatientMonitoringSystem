@@ -8,7 +8,7 @@ import model.Monitor;
 
 /**
  * @author Jeffrey
- *
+ * @version v1.0.0
  */
 public class Main {
 
