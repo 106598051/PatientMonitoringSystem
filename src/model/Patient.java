@@ -116,7 +116,7 @@ class Patient {
         state = this.device.get(i).checkRecordState(index);
         if (state == -1) {
           System.out.print("[" + timestamp + "]");
-          System.out.println(this.device.get(i).name() + "falls");
+          System.out.println(this.device.get(i).name() + " falls");
         } else if (state == 1) {
           System.out.print("[" + timestamp + "]");
           System.out.println(this.name + " is in danger! Cause: " + this.device.get(i).name() + " "

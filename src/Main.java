@@ -17,31 +17,18 @@ public class Main {
    * The main method.
    *
    * @param args the arguments
+   * @throws IOException
    * 
    */
-  public static void main(String[] args) {
+  public static void main(String[] args) throws IOException {
     if (args.length > 0) {
-      // System.out.println("args: " + args[0]);
       InputProcess process = null;
-      try {
-        process = new InputProcess(args[0]);
-      } catch (FileNotFoundException e) {
-        e.printStackTrace();
-      }
+      process = new InputProcess(args[0]);
       if (process != null) {
         Monitor monitor;
-        try {
-          monitor = process.setFromInput();
-          if (monitor != null) {
-            try {
-              monitor.start();
-            } catch (IOException e) {
-              e.printStackTrace();
-            }
-          }
-        } catch (FileNotFoundException e) {
-          System.out.println("Input file not found. Target path = " + args[0]);
-          e.printStackTrace();
+        monitor = process.setFromInput();
+        if (monitor != null) {
+          monitor.start();
         }
       }
     } else {
