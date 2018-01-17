@@ -4,7 +4,7 @@ import model.InputProcess;
 import model.Monitor;
 
 /**
- * The Class Main.
+ * The Class Main with main method.
  */
 
 /**
@@ -17,7 +17,7 @@ public class Main {
    * The main method.
    *
    * @param args the arguments
-   * @throws Exception
+   * 
    */
   public static void main(String[] args) {
     if (args.length > 0) {
@@ -29,13 +29,19 @@ public class Main {
         e.printStackTrace();
       }
       if (process != null) {
-        Monitor monitor = process.setFromInput();
-        if (monitor != null) {
-          try {
-            monitor.start();
-          } catch (IOException e) {
-            e.printStackTrace();
+        Monitor monitor;
+        try {
+          monitor = process.setFromInput();
+          if (monitor != null) {
+            try {
+              monitor.start();
+            } catch (IOException e) {
+              e.printStackTrace();
+            }
           }
+        } catch (FileNotFoundException e) {
+          System.out.println("Input file not found. Target path = " + args[0]);
+          e.printStackTrace();
         }
       }
     } else {

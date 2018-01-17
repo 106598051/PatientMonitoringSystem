@@ -41,20 +41,14 @@ class Device {
    * @param datasetFilePath the dataset file path
    * @param safeRangeLowerBound the safe range lower bound
    * @param safeRangeUpperBound the safe range upper bound
-   * @throws FileNotFoundException 
-   * @throws Exception the exception
+   * @throws FileNotFoundException the file not found exception
    */
   public Device(String category, String name, String datasetFilePath, double safeRangeLowerBound,
-      double safeRangeUpperBound) {
+      double safeRangeUpperBound) throws FileNotFoundException {
     this.category = category;
     this.name = name;
     this.datasetFilePath = datasetFilePath;
-    try {
-      this.factorDataset = new FactorDataset(this.datasetFilePath);
-    } catch (FileNotFoundException e) {
-      System.out.println("Input file not found. Target file = \"" + this.datasetFilePath + "\"");
-      e.printStackTrace();
-    }
+    this.factorDataset = new FactorDataset(this.datasetFilePath);
     this.datasetAmount = 0;
     this.timestamp = new ArrayList<Integer>();
     this.dataset = new ArrayList<Double>();
@@ -113,14 +107,18 @@ class Device {
    * @return the int
    */
   public int timestamp(int index) {
-    return this.timestamp.get(index);
+    int timestamp = -1;
+    if (index < this.timestamp.size()) {
+      timestamp = this.timestamp.get(index);
+    }
+    return timestamp;
   }
 
   /**
    * Dataset.
    *
-   * @param index the index
-   * @return the double
+   * @param index the index of target dataset
+   * @return the content in dataset of target index
    */
   public double dataset(int index) {
     return this.dataset.get(index);
@@ -129,7 +127,7 @@ class Device {
   /**
    * Display factor dataset.
    *
-   * @param index the index
+   * @param index the index of target dataset
    * @return the string
    */
   public String factorDatasetStringify(int index) {
@@ -139,7 +137,7 @@ class Device {
   /**
    * Safe range accessor methods.
    *
-   * @return the safe range
+   * @return the safe range of device
    */
   public SafeRange safeRange() {
     return this.safeRange;
@@ -177,6 +175,11 @@ class Device {
     return state;
   }
 
+  /**
+   * Disable.
+   *
+   * @return true, if successful
+   */
   public boolean disable() {
     boolean result = false;
     try {
@@ -188,6 +191,9 @@ class Device {
     return result;
   }
 
+  /**
+   * Display record.
+   */
   public void displayRecord() {
     for (int i = 0; i < this.datasetAmount; i++) {
       System.out.println(this.factorDatasetStringify(i));

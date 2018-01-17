@@ -1,5 +1,6 @@
 package model;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -20,8 +21,8 @@ class Patient {
   /**
    * Instantiates a new patient.
    *
-   * @param name the name
-   * @param period the period
+   * @param name the patient name
+   * @param period the patient's period to check devices
    */
   public Patient(String name, int period) {
     this.name = name;
@@ -88,10 +89,10 @@ class Patient {
    * @param safeRangeLowerBound the safe range lower bound
    * @param safeRangeUpperBound the safe range upper bound
    * @return true, if successful
-   * @throws Exception the exception
+   * @throws FileNotFoundException the file not found exception
    */
   public boolean addDevice(String category, String name, String datasetFilePath,
-      double safeRangeLowerBound, double safeRangeUpperBound) {
+      double safeRangeLowerBound, double safeRangeUpperBound) throws FileNotFoundException {
     boolean result = false;
     Device newDevice =
         new Device(category, name, datasetFilePath, safeRangeLowerBound, safeRangeUpperBound);
@@ -125,12 +126,18 @@ class Patient {
     }
   }
 
+  /**
+   * Disable all device.
+   */
   public void disableAllDevice() {
     for (int i = 0; i < this.device.size(); i++) {
       this.device.get(i).disable();
     }
   }
 
+  /**
+   * Display factor database.
+   */
   public void displayFactorDatabase() {
     System.out.println("patient " + this.name);
     for (int i = 0; i < this.device.size(); i++) {

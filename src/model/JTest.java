@@ -6,8 +6,16 @@ import java.io.IOException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
+/**
+ * The Class JTest. Using JUnit 5.
+ */
 class JTest {
 
+  /**
+   * Device constructor.
+   *
+   * @throws Exception the exception
+   */
   @Test
   void deviceConstructor() throws Exception {
     Device device =
@@ -21,6 +29,23 @@ class JTest {
     device.factorDataset().closeFile();
   }
 
+  /**
+   * Device constructor fail.
+   */
+  @Test
+  void deviceConstructorFail() {
+    // Executable closureContainingCodeToTest = () -> {
+    // new Device("BloodPressureSensor", "sensor1", "", 150, 200);
+    // };
+    // assertThrows(FileNotFoundException.class, closureContainingCodeToTest);
+    assertThrows(FileNotFoundException.class, () -> {
+      new Device("BloodPressureSensor", "sensor1", "", 150, 200);
+    });
+  }
+
+  /**
+   * Patient constructor.
+   */
   @Test
   void patientConstructor() {
     Patient patient = new Patient("Mark", 600);
@@ -28,6 +53,11 @@ class JTest {
     assertEquals(600, patient.period());
   }
 
+  /**
+   * Patient add device.
+   *
+   * @throws Exception the exception
+   */
   @Test
   void patientAddDevice() throws Exception {
     Patient patient = new Patient("Mark", 600);
@@ -40,14 +70,40 @@ class JTest {
     patient.getDevice(0).factorDataset().closeFile();
   }
 
+  /**
+   * Patient add device fail.
+   */
+  @Test
+  void patientAddDeviceFail() {
+    Patient patient = new Patient("Mark", 600);
+    // Executable closureContainingCodeToTest = () -> {
+    // patient.addDevice("BloodPressureSensor", "sensor1", "", 150, 200);
+    // };
+    assertThrows(FileNotFoundException.class, () -> {
+      patient.addDevice("BloodPressureSensor", "sensor1", "", 150, 200);
+    });
+
+  }
+
+  /**
+   * Patient get device.
+   *
+   * @throws Exception the exception
+   */
   @Test
   void patientGetDevice() throws Exception {
     Patient patient = new Patient("Mark", 600);
     patient.addDevice("BloodPressureSensor", "sensor1", "src/BloodPressureData1.dataset", 150, 200);
     assertEquals("BloodPressureSensor", patient.getDevice(0).category());
+    assertEquals(null, patient.getDevice(1));
     patient.getDevice(0).factorDataset().closeFile();
   }
 
+  /**
+   * Factor dataset read line.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   @Test
   void factorDatasetReadLine() throws IOException {
     FactorDataset factorDataset = new FactorDataset("src/BloodPressureData1.dataset");
@@ -59,6 +115,20 @@ class JTest {
     factorDataset.closeFile();
   }
 
+  /**
+   * Factor dataset constructo fail.
+   */
+  @Test
+  void factorDatasetConstructoFail() {
+    Executable closureContainingCodeToTest = () -> {
+      new FactorDataset("");
+    };
+    assertThrows(FileNotFoundException.class, closureContainingCodeToTest);
+  }
+
+  /**
+   * Monitor constructor.
+   */
   @Test
   void monitorConstructor() {
     int monitorPeriod = 3000;
@@ -66,6 +136,9 @@ class JTest {
     assertEquals(3000, monitor.monitorPeriod());
   }
 
+  /**
+   * Monitor add patient.
+   */
   @Test
   void monitorAddPatient() {
     Monitor monitor = new Monitor(3000);
@@ -74,8 +147,12 @@ class JTest {
     monitor.addPatient(patientName, patientPeriod);
     assertEquals("Mark", monitor.getPatient(0).name());
     assertEquals(600, monitor.getPatient(0).period());
+    assertEquals(1, monitor.patient().size());
   }
 
+  /**
+   * Monitor get patient by name.
+   */
   @Test
   void monitorGetPatientByName() {
     Monitor monitor = new Monitor(3000);
@@ -83,10 +160,22 @@ class JTest {
     assertEquals(600, monitor.getPatient("Mark").period());
   }
 
+  /**
+   * Monitor initial.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   @Test
-  void factorDatasetConstructorError() {
-    Executable closureContainingCodeToTest = () -> {new FactorDataset("");};
-    assertThrows(FileNotFoundException.class, closureContainingCodeToTest);
+  void monitorInitial() throws IOException {
+    Monitor monitor = new Monitor(3000);
+    monitor.initial();
+    assertEquals(0, monitor.timestamp());
   }
+
+  // @Test
+  // void monitorStart() throws IOException {
+  // Monitor monitor = new Monitor(3000);
+  // monitor.addPatient("Mark", 600);
+  // }
 
 }

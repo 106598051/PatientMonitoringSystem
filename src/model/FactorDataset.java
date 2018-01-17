@@ -6,9 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class FactorDataset.
+ * The Class FactorDataset read input factor dataset from file. May change the implement to fits
+ * input of real sensor device.
  */
 public class FactorDataset {
 
@@ -27,15 +27,6 @@ public class FactorDataset {
   public FactorDataset(String filePath) throws FileNotFoundException {
     this.factorData = new FileInputStream(filePath);
     this.bufferedreader = new BufferedReader(new InputStreamReader(this.factorData));
-  }
-
-  /**
-   * Factor data.
-   *
-   * @return the file input stream
-   */
-  public FileInputStream factorData() {
-    return this.factorData;
   }
 
   /**
@@ -60,6 +51,6 @@ public class FactorDataset {
    * @throws IOException Signals that an I/O exception has occurred.
    */
   public void closeFile() throws IOException {
-    factorData.close();
+    this.factorData.close();
   }
 }

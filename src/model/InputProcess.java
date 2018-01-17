@@ -7,12 +7,29 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+/**
+ * The Class InputProcess.
+ */
 public class InputProcess {
+
+  /** The input file. */
   private FileInputStream inputFile;
+
+  /** The bufferedreader. */
   private BufferedReader bufferedreader;
+
+  /** The monitor. */
   private Monitor monitor;
+
+  /** The setting. */
   private ArrayList<String[]> setting;
 
+  /**
+   * Instantiates a new input process.
+   *
+   * @param filePath the file path
+   * @throws FileNotFoundException the file not found exception
+   */
   public InputProcess(String filePath) throws FileNotFoundException {
     this.inputFile = new FileInputStream(filePath);
     this.bufferedreader = new BufferedReader(new InputStreamReader(this.inputFile));
@@ -25,6 +42,11 @@ public class InputProcess {
     }
   }
 
+  /**
+   * Read file.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   private void readFile() throws IOException {
     String input;
     while ((input = this.bufferedreader.readLine()) != null) {
@@ -33,7 +55,13 @@ public class InputProcess {
     this.inputFile.close();
   }
 
-  public Monitor setFromInput() {
+  /**
+   * Sets the from input.
+   *
+   * @return the monitor
+   * @throws FileNotFoundException the file not found exception
+   */
+  public Monitor setFromInput() throws FileNotFoundException {
     int monitorPeriod = 0;
     try {
       monitorPeriod = Integer.parseInt(setting.get(0)[0]);
@@ -48,7 +76,12 @@ public class InputProcess {
     return this.monitor;
   }
 
-  private void setMonitor() {
+  /**
+   * Sets the monitor.
+   *
+   * @throws FileNotFoundException the file not found exception
+   */
+  private void setMonitor() throws FileNotFoundException {
     int patientAmount = this.monitor.patient().size();
     int patientIndex = 0;
     String patientName = "";

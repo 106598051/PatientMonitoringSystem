@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * The Class Monitor.
+ * Contains patients to monitoring.
  */
 public class Monitor {
 
@@ -13,6 +13,8 @@ public class Monitor {
 
   /** The patient. */
   private ArrayList<Patient> patient;
+
+  /** The timestamp. */
   private int timestamp;
 
   /**
@@ -35,8 +37,22 @@ public class Monitor {
     return this.monitorPeriod;
   }
 
+  /**
+   * Patient.
+   *
+   * @return the array list
+   */
   public ArrayList<Patient> patient() {
     return this.patient;
+  }
+
+  /**
+   * Timestamp.
+   *
+   * @return the int
+   */
+  public int timestamp() {
+    return this.timestamp;
   }
 
   /**
@@ -80,10 +96,18 @@ public class Monitor {
     return patient;
   }
 
+  /**
+   * Initial.
+   */
   public void initial() {
     this.timestamp = 0;
   }
 
+  /**
+   * Start.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   public void start() throws IOException {
     for (; timestamp <= this.monitorPeriod; timestamp++) {
       for (int i = 0; i < this.patient.size(); i++) {
@@ -93,6 +117,9 @@ public class Monitor {
     this.stop();
   }
 
+  /**
+   * Stop.
+   */
   private void stop() {
     for (int i = 0; i < this.patient.size(); i++) {
       this.patient.get(i).displayFactorDatabase();
