@@ -9,6 +9,8 @@ import java.util.ArrayList;
  */
 class Patient {
 
+  private final int id;
+
   /** The name. */
   private String name;
 
@@ -24,7 +26,8 @@ class Patient {
    * @param name the patient name
    * @param period the patient's period to check devices
    */
-  public Patient(String name, int period) {
+  public Patient(String name, int period, int id) {
+    this.id = id;
     this.name = name;
     this.period = period;
     this.device = new ArrayList<Device>();
@@ -144,5 +147,9 @@ class Patient {
       System.out.println(this.device.get(i).category() + " " + this.device.get(i).name());
       this.device.get(i).displayRecord();
     }
+  }
+
+  public int id() {
+    return this.id;
   }
 }

@@ -62,7 +62,7 @@ public class Monitor {
    * @param period the period
    */
   public void addPatient(String name, int period) {
-    Patient patient = new Patient(name, period);
+    Patient patient = new Patient(name, period, this.patient.size());
     this.patient.add(patient);
   }
 

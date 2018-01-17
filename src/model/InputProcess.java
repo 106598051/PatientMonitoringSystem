@@ -84,6 +84,7 @@ public class InputProcess {
   private void setMonitor() throws FileNotFoundException {
     int patientAmount = this.monitor.patient().size();
     int patientIndex = 0;
+    Patient patient = null;
     String patientName = "";
     int patientPeriod = 0;
     String deviceCategory = "";
@@ -94,10 +95,15 @@ public class InputProcess {
     for (int i = 1; i < this.setting.size(); i++) {
       if (setting.get(i).length == 3) {
         patientName = this.setting.get(i)[1];
-        patientPeriod = Integer.parseInt(this.setting.get(i)[2]);
-        this.monitor.addPatient(patientName, patientPeriod);
-        patientAmount++;
-        patientIndex = patientAmount - 1;
+        patient = this.monitor.getPatient(patientName);
+        if(patient == null) {
+          patientPeriod = Integer.parseInt(this.setting.get(i)[2]);
+          this.monitor.addPatient(patientName, patientPeriod);
+          patientAmount++;
+          patientIndex = patientAmount - 1;
+        }else {
+          patientIndex = patient.id();
+        }
       } else {
         deviceCategory = this.setting.get(i)[0];
         deviceName = this.setting.get(i)[1];

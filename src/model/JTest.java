@@ -48,7 +48,7 @@ class JTest {
    */
   @Test
   void patientConstructor() {
-    Patient patient = new Patient("Mark", 600);
+    Patient patient = new Patient("Mark", 600, 0);
     assertEquals("Mark", patient.name());
     assertEquals(600, patient.period());
   }
@@ -60,7 +60,7 @@ class JTest {
    */
   @Test
   void patientAddDevice() throws Exception {
-    Patient patient = new Patient("Mark", 600);
+    Patient patient = new Patient("Mark", 600, 0);
     patient.addDevice("BloodPressureSensor", "sensor1", "src/BloodPressureData1.dataset", 150, 200);
     assertEquals("BloodPressureSensor", patient.getDevice(0).category());
     assertEquals("sensor1", patient.getDevice(0).name());
@@ -75,7 +75,7 @@ class JTest {
    */
   @Test
   void patientAddDeviceFail() {
-    Patient patient = new Patient("Mark", 600);
+    Patient patient = new Patient("Mark", 600, 0);
     // Executable closureContainingCodeToTest = () -> {
     // patient.addDevice("BloodPressureSensor", "sensor1", "", 150, 200);
     // };
@@ -92,7 +92,7 @@ class JTest {
    */
   @Test
   void patientGetDevice() throws Exception {
-    Patient patient = new Patient("Mark", 600);
+    Patient patient = new Patient("Mark", 600, 0);
     patient.addDevice("BloodPressureSensor", "sensor1", "src/BloodPressureData1.dataset", 150, 200);
     assertEquals("BloodPressureSensor", patient.getDevice(0).category());
     assertEquals(null, patient.getDevice(1));
