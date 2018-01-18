@@ -9,6 +9,7 @@ import java.util.ArrayList;
  */
 class Patient {
 
+  /** The id. */
   private final int id;
 
   /** The name. */
@@ -25,6 +26,7 @@ class Patient {
    *
    * @param name the patient name
    * @param period the patient's period to check devices
+   * @param id the id
    */
   public Patient(String name, int period, int id) {
     this.id = id;
@@ -118,10 +120,10 @@ class Patient {
         index = this.device.get(i).readFactorValue(timestamp);
         state = this.device.get(i).checkRecordState(index);
         if (state == -1) {
-          System.out.print("[" + timestamp + "]");
+          System.out.print("[" + timestamp + "] ");
           System.out.println(this.device.get(i).name() + " falls");
         } else if (state == 1) {
-          System.out.print("[" + timestamp + "]");
+          System.out.print("[" + timestamp + "] ");
           System.out.println(this.name + " is in danger! Cause: " + this.device.get(i).name() + " "
               + this.device.get(i).dataset(index));
         }
@@ -140,20 +142,26 @@ class Patient {
 
   /**
    * Display factor database.
+   *
+   * @return the string
    */
   public String displayFactorDatabase() {
     String output = "";
-     System.out.println("patient " + this.name);
+    // System.out.println("patient " + this.name);
     output += "patient " + this.name + "\n";
     for (int i = 0; i < this.device.size(); i++) {
-       System.out.println(this.device.get(i).category() + " " + this.device.get(i).name());
-      output +=
-          this.device.get(i).category() + " " + this.device.get(i).name() + "\n";
+      // System.out.println(this.device.get(i).category() + " " + this.device.get(i).name());
+      output += this.device.get(i).category() + " " + this.device.get(i).name() + "\n";
       output += this.device.get(i).displayRecord();
     }
     return output;
   }
 
+  /**
+   * Id.
+   *
+   * @return the int
+   */
   public int id() {
     return this.id;
   }

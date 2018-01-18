@@ -197,7 +197,7 @@ class Device {
   public String displayRecord() {
     String output = "";
     for (int i = 0; i < this.datasetAmount; i++) {
-       System.out.println(this.factorDatasetStringify(i));
+      // System.out.println(this.factorDatasetStringify(i));
       output += this.factorDatasetStringify(i) + "\n";
     }
     return output;

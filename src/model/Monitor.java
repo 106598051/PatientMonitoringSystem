@@ -131,7 +131,7 @@ public class Monitor {
   }
 
   public void displayRecord() {
-    System.out.println("----Record-----");
+    // System.out.println("----Record-----");
     for (int i = 0; i < this.factorRecord.size(); i++) {
       System.out.print(this.factorRecord.get(i));
     }
