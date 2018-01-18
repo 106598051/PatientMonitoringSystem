@@ -40,7 +40,11 @@ public class FactorDataset {
     String input = null;
     input = this.bufferedreader.readLine();
     if (input != null) {
-      data = Double.parseDouble(input);
+      try {
+        data = Double.parseDouble(input);
+      } catch (NumberFormatException e) {
+        data = -1.0;
+      }
     }
     return data;
   }
