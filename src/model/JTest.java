@@ -51,6 +51,7 @@ class JTest {
     Patient patient = new Patient("Mark", 600, 0);
     assertEquals("Mark", patient.name());
     assertEquals(600, patient.period());
+    assertEquals(0, patient.id());
   }
 
   /**

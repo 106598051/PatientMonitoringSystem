@@ -15,8 +15,8 @@ public class InputProcess {
   /** The input file. */
   private FileInputStream inputFile;
 
-  /** The bufferedreader. */
-  private BufferedReader bufferedreader;
+  /** The buffered reader. */
+  private BufferedReader bufferedReader;
 
   /** The monitor. */
   private Monitor monitor;
@@ -32,7 +32,7 @@ public class InputProcess {
    */
   public InputProcess(String filePath) throws FileNotFoundException {
     this.inputFile = new FileInputStream(filePath);
-    this.bufferedreader = new BufferedReader(new InputStreamReader(this.inputFile));
+    this.bufferedReader = new BufferedReader(new InputStreamReader(this.inputFile));
     this.monitor = null;
     this.setting = new ArrayList<String[]>();
     try {
@@ -50,7 +50,7 @@ public class InputProcess {
   private void readFile() throws IOException {
     String input;
     do {
-      input = this.bufferedreader.readLine();
+      input = this.bufferedReader.readLine();
       if (input == null) {
         break;
       } else if (input.trim().equals("")) {

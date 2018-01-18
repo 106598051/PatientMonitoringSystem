@@ -125,7 +125,7 @@ class Device {
   }
 
   /**
-   * Display factor dataset.
+   * Display factor dataset of target index.
    *
    * @param index the index of target dataset
    * @return the string
